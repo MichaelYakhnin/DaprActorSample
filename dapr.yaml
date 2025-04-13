@@ -1,0 +1,39 @@
+version: 1
+common:
+  resourcesPath: ./Components/
+apps:
+  - appID: plane-data-generator
+    appPort: 5000
+    appDirPath: ./PlaneDataGenerator
+    daprHTTPPort: 3500
+    daprGRPCPort: 53500
+    schedulerHostAddress: localhost:6060
+    configFilePath: ../Components/config.yaml
+    command: ["dotnet", "run"]
+  - appID: actors-service-1
+    appPort: 5001
+    appDirPath: "./ActorsService"
+    daprHTTPPort: 3501
+    daprGRPCPort: 53501
+    schedulerHostAddress: localhost:6060
+    placementHostAddress: localhost:6050
+    configFilePath: ../Components/config.yaml
+    command: ["dotnet", "run"]
+  - appID: actors-service-2
+    appPort: 5002
+    appDirPath: "./ActorsService"
+    daprHTTPPort: 3502
+    daprGRPCPort: 53502
+    schedulerHostAddress: localhost:6060
+    placementHostAddress: localhost:6050
+    configFilePath: ../Components/config.yaml
+    command: ["dotnet", "run","--urls", "http://localhost:5002"]
+  - appID: plane-data-mongo-service
+    appPort: 5003
+    appDirPath: "./PlaneDataToMongoService"
+    daprHTTPPort: 3503
+    daprGRPCPort: 53503
+    schedulerHostAddress: localhost:6060
+    placementHostAddress: localhost:6050
+    configFilePath: ../Components/config.yaml
+    command: ["dotnet", "run"]
